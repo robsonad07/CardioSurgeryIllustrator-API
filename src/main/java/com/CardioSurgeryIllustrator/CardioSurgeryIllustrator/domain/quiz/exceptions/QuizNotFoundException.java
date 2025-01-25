@@ -2,6 +2,6 @@ package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.quiz.except
 
 public class QuizNotFoundException extends RuntimeException {
     public QuizNotFoundException() {
-        super("Subject ID cannot be null or empty");
+        super("Quiz not founded");
     }
 }
