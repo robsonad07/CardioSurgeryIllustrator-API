@@ -19,6 +19,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurations {
     @Autowired
     SecurityFilter securityFilter;
+
+    private static final String[] PERMIT_ALL_LIST = {
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+    };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -28,6 +34,14 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/auth/register-user").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/quiz/create").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/quiz/get-all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/quiz/get-one/*").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/quiz/update/*").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/quiz/delete/*").permitAll()
+                        .requestMatchers(PERMIT_ALL_LIST).permitAll()
+                        .requestMatchers("/module/**").permitAll()
+                        .requestMatchers("/subject/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
