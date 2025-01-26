@@ -22,6 +22,7 @@ public class TokenService {
 
             String token = JWT.create()
                     .withIssuer("cardio-api")
+                    .withClaim("userId", user.getId().toString())
                     .withSubject(user.getEmail())
                     .withExpiresAt(this.generateExpirationDate())
                     .sign(algorithm);
