@@ -19,7 +19,8 @@ public class QuizEntity {
     private String title;
     @Column(nullable = false)
     private String description;
+
     @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonManagedReference("quiz-questions")
     private List<QuestionEntity> questionEntityList;
 }

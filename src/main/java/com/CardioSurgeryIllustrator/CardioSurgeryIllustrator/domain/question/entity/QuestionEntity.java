@@ -27,8 +27,10 @@ public class QuestionEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AnswerEnum answer;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id")
-    @JsonBackReference
+    @JsonBackReference("quiz-questions")
     private QuizEntity quizEntity;
+
 }
