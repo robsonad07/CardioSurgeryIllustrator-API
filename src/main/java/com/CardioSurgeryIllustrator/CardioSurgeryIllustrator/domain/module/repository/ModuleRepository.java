@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.entity.ModuleEntity;
 
 public interface ModuleRepository extends JpaRepository<ModuleEntity, UUID> {
-  List<ModuleEntity> findBySubjectId(UUID subjectId);
+  List<ModuleEntity> findBySubject_Id(UUID subjectId);
 }

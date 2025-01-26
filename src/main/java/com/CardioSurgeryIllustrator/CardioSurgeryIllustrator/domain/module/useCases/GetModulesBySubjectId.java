@@ -21,7 +21,7 @@ public class GetModulesBySubjectId {
             throw new SubjectIdNotFoundException();
         }
 
-        List<ModuleEntity> modules = moduleRepository.findBySubjectId(subjectId);
+        List<ModuleEntity> modules = moduleRepository.findBySubject_Id(subjectId);
 
         return modules;
     }
