@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.entity.ModuleEntity;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.CreateModuleUseCase;
+import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.GetAllModulesUseCase;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.GetModulesBySubjectId;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.ToggleFavoriteModuleUseCase;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.UpdateModuleUseCase;
@@ -40,7 +41,10 @@ public class ModuleController {
     @Autowired
     private UpdateModuleUseCase updateModuleUseCase;
 
-    @PostMapping
+    @Autowired
+    private GetAllModulesUseCase getAllModulesUseCase;
+
+    @PostMapping("/")
     public ResponseEntity<Object> createModule(@RequestBody ModuleEntity moduleEntity) {
         try {
             var createdModule = this.createModuleUseCase.execute(moduleEntity);
@@ -54,6 +58,16 @@ public class ModuleController {
     public ResponseEntity<Object> getModulesBySubjectId(@PathVariable UUID subjectId) {
         try {
             var modules = this.getModulesBySubjectId.execute(subjectId);
+            return ResponseEntity.ok().body(modules);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<Object> getAllModules() {
+        try {
+            var modules = this.getAllModulesUseCase.execute();
             return ResponseEntity.ok().body(modules);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
