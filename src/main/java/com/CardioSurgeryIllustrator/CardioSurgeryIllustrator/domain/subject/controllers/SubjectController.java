@@ -58,7 +58,7 @@ public class SubjectController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Object> listAllSubjects() {
         try {
             var subjects = this.listAllSubjectsUseCase.execute();

@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.entity.ModuleEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "Subject")
 @Table(name = "Subject")
@@ -28,5 +29,6 @@ public class SubjectEntity {
     public String description;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ModuleEntity> modules; 
 }
