@@ -34,7 +34,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/auth/register-user").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/user/get-all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/get-all").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/quiz/create").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/quiz/get-all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/quiz/get-one/*").permitAll()
