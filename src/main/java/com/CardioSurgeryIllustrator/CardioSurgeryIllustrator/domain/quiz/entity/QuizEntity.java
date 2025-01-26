@@ -1,8 +1,6 @@
 package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.quiz.entity;
 
-import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.performance.entity.PerformanceEntity;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.question.entity.QuestionEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
