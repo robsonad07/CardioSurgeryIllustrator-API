@@ -3,6 +3,7 @@ package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.cont
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.dto.CreateModuleDTO;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.entity.ModuleEntity;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.CreateModuleUseCase;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.GetAllModulesUseCase;
@@ -45,9 +46,9 @@ public class ModuleController {
     private GetAllModulesUseCase getAllModulesUseCase;
 
     @PostMapping("/")
-    public ResponseEntity<Object> createModule(@RequestBody ModuleEntity moduleEntity) {
+    public ResponseEntity<Object> createModule(@RequestBody CreateModuleDTO createModuleDTO) {
         try {
-            var createdModule = this.createModuleUseCase.execute(moduleEntity);
+            var createdModule = this.createModuleUseCase.execute(createModuleDTO);
             return ResponseEntity.ok().body(createdModule);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
