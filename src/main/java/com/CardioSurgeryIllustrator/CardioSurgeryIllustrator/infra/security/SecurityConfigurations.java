@@ -59,6 +59,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/password-recovery/generate-code").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/password-recovery/valid-code").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/password-recovery/new-password/*").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/form-response/create").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/form-response/form/*").permitAll()
                         .requestMatchers(PERMIT_ALL_LIST).permitAll()
                         .requestMatchers("/module/**").permitAll()
                         .requestMatchers("/subject/**").permitAll()
