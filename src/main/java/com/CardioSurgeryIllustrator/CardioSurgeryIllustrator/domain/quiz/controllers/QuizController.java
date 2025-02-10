@@ -1,5 +1,6 @@
 package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.quiz.controllers;
 
+import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.quiz.dto.CreateQuizDTO;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.quiz.entity.QuizEntity;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.quiz.useCases.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class QuizController {
     private DeleteQuizUseCase deleteQuizUseCase;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createQuiz(@RequestBody QuizEntity quizEntity) {
+    public ResponseEntity<Object> createQuiz(@RequestBody CreateQuizDTO createQuizDTO) {
         try {
-           QuizEntity response = createQuizUseCase.execute(quizEntity);
+           QuizEntity response = createQuizUseCase.execute(createQuizDTO);
            return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -40,7 +41,7 @@ public class QuizController {
     @GetMapping("/get-all")
     public ResponseEntity<Object> getAllQuiz() {
         try{
-            List<QuizEntity> response =getAllQuizUseCase.execute();
+            List<QuizEntity> response = getAllQuizUseCase.execute();
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
