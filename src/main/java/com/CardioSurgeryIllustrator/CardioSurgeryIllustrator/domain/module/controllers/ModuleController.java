@@ -1,15 +1,11 @@
 package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.controllers;
 
+import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.dto.CreateModuleDTO;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.entity.ModuleEntity;
-import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.CreateModuleUseCase;
-import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.GetAllModulesUseCase;
-import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.GetModulesBySubjectId;
-import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.ToggleFavoriteModuleUseCase;
-import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.module.useCases.UpdateModuleUseCase;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -32,6 +28,9 @@ public class ModuleController {
 
     @Autowired
     private CreateModuleUseCase createModuleUseCase;
+
+    @Autowired
+    private GetModuleByIdUseCase getModuleByIdUseCase;
 
     @Autowired
     private GetModulesBySubjectId getModulesBySubjectId;
@@ -70,6 +69,16 @@ public class ModuleController {
         try {
             var modules = this.getAllModulesUseCase.execute();
             return ResponseEntity.ok().body(modules);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{moduleId}")
+    public ResponseEntity<Object> getModuleById(@PathVariable UUID moduleId) {
+        try {
+            var module = this.getModuleByIdUseCase.execute(moduleId);
+            return ResponseEntity.ok().body(module);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

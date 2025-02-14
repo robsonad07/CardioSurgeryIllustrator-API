@@ -35,10 +35,10 @@ public class PasswordRecoveryController {
         }
     }
 
-    @PostMapping("/new-password/{id}")
-    public ResponseEntity<Object> newPassword(@PathVariable UUID id , @RequestBody @Valid EmailCodeDTO request) {
+    @PostMapping("/new-password")
+    public ResponseEntity<Object> newPassword(@RequestBody @Valid EmailCodeDTO request) {
         try {
-            String response = passwordRecoveryService.changePassword(id ,request.email(), request.code(), request.password());
+            String response = passwordRecoveryService.changePassword(request.email(), request.code(), request.password());
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
