@@ -58,7 +58,7 @@ public class PasswordRecoveryService {
 
         sendEmail(email, code);
 
-        return "Success";
+        return "{\"status\": \"success\"}";
     }
 
     public String validCode(String email, String code) {
@@ -77,12 +77,12 @@ public class PasswordRecoveryService {
             throw new InvalidCodeException();
         }
 
-        return "Success";
+        return "{\"status\": \"success\"}";
     }
 
-    public String changePassword(UUID id ,String email, String code, String newPassword) {
+    public String changePassword(String email, String code, String newPassword) {
         validCode(email, code);
-        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findUserByEmail(email);
         if(optionalUser.isEmpty()) {
             throw new UserNotFoundException();
         }
@@ -90,8 +90,9 @@ public class PasswordRecoveryService {
 
         user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
         userRepository.save(user);
-        return "Success";
+        return "{\"status\": \"success\"}";
     }
+
     private String generateCode6Digits() {
         int code = ThreadLocalRandom.current().nextInt(1000000);
         return String.format("%06d", code);
