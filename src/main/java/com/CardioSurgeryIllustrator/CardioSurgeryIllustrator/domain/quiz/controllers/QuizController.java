@@ -28,6 +28,9 @@ public class QuizController {
     @Autowired
     private DeleteQuizUseCase deleteQuizUseCase;
 
+    @Autowired
+    private AddQuestionUseCase addQuestionUseCase;
+
     @PostMapping("/create")
     public ResponseEntity<Object> createQuiz(@RequestBody CreateQuizDTO createQuizDTO) {
         try {
@@ -77,4 +80,15 @@ public class QuizController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/add-question/{questionId}/{quizId}")
+    public ResponseEntity<Object> addQuestion(@PathVariable UUID questionId, @PathVariable UUID quizId){
+        try{
+            var response = addQuestionUseCase.execute(quizId, questionId);
+            return ResponseEntity.ok().body(response);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
