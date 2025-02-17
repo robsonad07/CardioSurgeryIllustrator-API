@@ -1,4 +1,4 @@
-package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.form.entity;
+package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.patient.entity;
 
 import lombok.Data;
 
