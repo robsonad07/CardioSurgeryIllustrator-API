@@ -65,7 +65,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/password-recovery/new-password").permitAll()
                         .requestMatchers(HttpMethod.POST, "/patient/create").permitAll()
                         .requestMatchers(HttpMethod.GET, "/patient/form/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/patient/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/patient/**").permitAll()
                         .requestMatchers(PERMIT_ALL_LIST).permitAll()
                         .requestMatchers("/module/**").permitAll()
                         .requestMatchers("/subject/**").permitAll()
