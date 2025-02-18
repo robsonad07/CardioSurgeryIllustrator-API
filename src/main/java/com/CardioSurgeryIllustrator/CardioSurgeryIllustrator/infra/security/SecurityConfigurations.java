@@ -47,6 +47,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/question/create").permitAll()
                         .requestMatchers(HttpMethod.GET, "/question/get-all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/question/get-one/*").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/quiz/add-question/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/forum/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/forum/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/comment/**").permitAll()
