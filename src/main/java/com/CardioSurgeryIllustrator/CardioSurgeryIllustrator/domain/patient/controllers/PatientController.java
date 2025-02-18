@@ -1,5 +1,7 @@
 package com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.patient.controllers;
 
+import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.patient.useCases.GetLikedForumsIdsUseCase;
+import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.patient.useCases.GetSavedForumsIdsUseCase;
 import com.CardioSurgeryIllustrator.CardioSurgeryIllustrator.domain.patient.useCases.GetPatientUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,21 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/patient")
 public class PatientController {
+
     @Autowired
     private CreatePatientUseCase createPatientUseCase;
+
     @Autowired
     private GetPatientFormUseCase getPatientFormUseCase;
+
     @Autowired
     private GetPatientUseCase getPatientUseCase;
+
+    @Autowired
+    private GetLikedForumsIdsUseCase getLikedForumsIdsUseCase;
+
+    @Autowired
+    private GetSavedForumsIdsUseCase getSavedForumsIdsUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createPatient(@RequestBody @Valid PatientRequest request) {
@@ -50,6 +61,28 @@ public class PatientController {
         try {
             var response = getPatientUseCase.execute(userId);
             return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // 🔥 **Novo endpoint para buscar os IDs dos fóruns curtidos pelo paciente**
+    @GetMapping("/{userId}/forum/liked")
+    public ResponseEntity<Object> getLikedForumsByUserId(@PathVariable UUID userId) {
+        try {
+            List<UUID> likedForums = getLikedForumsIdsUseCase.execute(userId);
+            return ResponseEntity.ok().body(likedForums);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // 🔥 **Novo endpoint para buscar os IDs dos fóruns salvos pelo paciente**
+    @GetMapping("/{userId}/forum/saved")
+    public ResponseEntity<Object> getSavedForumsByUserId(@PathVariable UUID userId) {
+        try {
+            List<UUID> savedForums = getSavedForumsIdsUseCase.execute(userId);
+            return ResponseEntity.ok().body(savedForums);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
