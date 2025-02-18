@@ -36,7 +36,7 @@ public class SecurityConfigurations {
                         .requestMatchers("/module/**").permitAll()
                         .requestMatchers("/subject/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/auth/register-user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/get-all").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/quiz/create").permitAll()
