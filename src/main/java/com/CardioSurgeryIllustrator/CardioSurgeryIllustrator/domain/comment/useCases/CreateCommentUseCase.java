@@ -39,10 +39,9 @@ public class CreateCommentUseCase {
         // Salva o comentário no repositório
         CommentEntity commentResponse = commentRepository.save(commentEntity);
 
-        // Adiciona o comentário à lista sem substituir a referência da coleção
         forum.getComments().add(commentResponse);
+        forum.setCommentsAmount(forum.getCommentsAmount() + 1);
 
-        // Salva apenas a entidade do fórum (evitando modificar patient.getComments())
         forumRepository.save(forum);
 
         return commentResponse;
